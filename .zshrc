@@ -3,8 +3,16 @@
 # ===============================
 export PATH="$HOME/.local/bin:$PATH"
 
-# 256色サポート
+# True Color サポート
 export TERM="xterm-256color"
+
+# Custom Gradient Color Palette (Generic Gradient)
+export COLOR_GRADIENT_1='#44d5c8'
+export COLOR_GRADIENT_2='#5be0ba'
+export COLOR_GRADIENT_3='#7deaa8'
+export COLOR_GRADIENT_4='#a3f193'
+export COLOR_GRADIENT_5='#cdf680'
+export COLOR_GRADIENT_6='#f9f871'
 
 # ===============================
 # History
@@ -30,11 +38,8 @@ compinit
 zstyle ':completion:*' menu select
 # 補完候補に色を付ける
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-# 大文字小文字を区別しない補完
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
 # ===============================
-# Prompt (Modern)
+# Prompt (Modern Gradient)
 # ===============================
 # カラー設定を有効化
 autoload -Uz colors
@@ -45,12 +50,13 @@ autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
-zstyle ':vcs_info:git:*' formats '%F{cyan}[%b]%f'
+zstyle ':vcs_info:git:*' formats '%F{#5be0ba}  %b%f'
 zstyle ':vcs_info:*' enable git
 
-# プロンプトのカスタマイズ
-PROMPT='%F{green}%n@%m%f:%F{blue}%~%f ${vcs_info_msg_0_}
-%F{magenta}❯%f '
+# カスタムグラデーションプロンプト
+# 色: #44d5c8 -> #5be0ba -> #7deaa8 -> #a3f193 -> #cdf680 -> #f9f871
+PROMPT='%F{#44d5c8}╭─%f%F{#5be0ba}%n%f%F{#7deaa8}@%f%F{#a3f193}%m%f %F{#cdf680}%~%f ${vcs_info_msg_0_}
+%F{#44d5c8}╰─%f%F{#f9f871}❯%f '
 
 # ===============================
 # Aliases
@@ -83,6 +89,6 @@ fi
 # ===============================
 # Tmux auto-start
 # ===============================
-if [ -z "$TMUX" ]; then
-  tmux attach -t default || tmux new -s default
-fi
+# if [ -z "$TMUX" ]; then
+#   tmux attach -t default || tmux new -s default
+# fi
